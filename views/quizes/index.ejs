@@ -1,5 +1,11 @@
+<section class="Busc"><form id="Busqueda" method="get" action="/quizes?search">
+	<input type="text" name="search"/>
+	<input type="submit" value="Buscar">
+</form></section>
+
 <table>
 <% var i; for (i=0; i < quizes.length; i++) { %>
-	<tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
+	<tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta/*.replace(query.search,'<mark>'+query.search+'</mark>')*/ %></a></td></tr>
 <% } %>
 </table>
+
