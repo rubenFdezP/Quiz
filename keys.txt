@@ -1,0 +1,5 @@
+mkdir certs
+cd certs
+openssl genrsa -out teo-responde-preguntas-key.pem 2048
+openssl req -new -sha256 -key teo-responde-preguntas-key.pem -out teo-responde-preguntas-csr.pem
+openssl x509 -req -in teo-responde-preguntas-csr.pem -signkey teo-responde-preguntas-key.pem -out teo-responde-preguntas-cert.pem
