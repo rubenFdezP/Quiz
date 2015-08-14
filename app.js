@@ -19,7 +19,6 @@ app.set('view engine', 'ejs');
 app.use(partials());
 
 
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -35,10 +34,26 @@ app.use(function(req,res,next) {
     if (!req.path.match(/\/login|\/logout/)) {
         req.session.redir = req.path;
     }
-
     res.locals.session = req.session;
     next();
 });
+
+//Autologout
+app.use(function(req,res,next) {
+    //Si esta logeado
+    if (req.session.user) {
+        var d = new Date();
+        actual = d.getTime();
+        //Si supera tiempo destruye sesion
+        if(actual >= req.session.ultimoAcceso+120000) {
+            delete req.session.user;
+        }
+        else {
+            req.session.ultimoAcceso=actual;
+        }
+    }
+    next();
+})
 
 app.use('/', routes);
 

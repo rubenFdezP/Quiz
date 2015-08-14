@@ -24,8 +24,9 @@ exports.create = function(req,res) {
 			res.redirect("/login");
 			return;			
 		}
-
-		req.session.user = {id:user.id, username:user.username};
+		var d = new Date();
+		acceso = d.getTime();
+		req.session.user = {id:user.id, username:user.username, ultimoAcceso:acceso};
 		res.redirect(req.session.redir.toString());
 	});
 };
